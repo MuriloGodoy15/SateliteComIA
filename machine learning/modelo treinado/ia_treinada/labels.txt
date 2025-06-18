@@ -1,0 +1,5 @@
+0 Grama Seca
+1 Solo Arenoso
+2 Solo Pantanoso
+3 Solo Seco
+4 Solo Verde
