@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Satélite</title>
+  <meta charset="UTF-8">
+  <title>Yareach One Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+  <div class="container">
+    <div class="left">
+      <h2>Dados do Solo</h2>
+      <canvas id="soilChart" width="400" height="300"></canvas>
+    </div>
+    <div class="right">
+      <h2>Última Imagem</h2>
+      <img id="photo" src="" alt="Imagem do satélite">
+    </div>
+  </div>
+
+  <div class="bottom">
+    <button id="captureBtn">Capturar Foto</button>
+  </div>
+
+  <script>
+    const chartCtx = document.getElementById('soilChart').getContext('2d');
+    let soilChart = new Chart(chartCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Tipo de Solo', 'Umidade (%)', 'NDVI'],
+        datasets: [{
+          label: 'Medições',
+          backgroundColor: ['#ffcc00', '#0099ff', '#33cc33'],
+          data: [0, 0, 0]
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    async function loadLatestData() {
+      try {
+        const res = await fetch('https://api.exemplo.com/latest');
+        const data = await res.json();
+        
+        // Atualiza gráfico
+        soilChart.data.datasets[0].data = [
+          data.soilTypeValue || 1, // pode ser um índice numérico p/ tipo de solo
+          data.humidity || 0,
+          data.ndvi || 0
+        ];
+        soilChart.update();
+
+        // Atualiza imagem
+        document.getElementById('photo').src = data.imageUrl || '';
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+      }
+    }
+
+    document.getElementById('captureBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('https://api.exemplo.com/capture', {
+          method: 'POST'
+        });
+        const data = await res.json();
+        alert('Foto capturada e processada!');
+        await loadLatestData();
+      } catch (err) {
+        console.error('Erro ao capturar foto:', err);
+      }
+    });
+
+    // Carrega dados iniciais
+    loadLatestData();
+  </script>
+
 </body>
 </html>
