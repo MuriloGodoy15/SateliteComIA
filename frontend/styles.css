@@ -28,6 +28,7 @@ body {
     text-align: center;
   }
   button {
+    transition: 0.3s;
     padding: 12px 20px;
     font-size: 16px;
     background-color: #28a745;
@@ -37,5 +38,7 @@ body {
     cursor: pointer;
   }
   button:hover {
+    transition: 0.3s;
+    padding: 14px 22px;
     background-color: #218838;
   }

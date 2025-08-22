@@ -44,18 +44,18 @@
 
     async function loadLatestData() {
       try {
-        const res = await fetch('https://api.exemplo.com/latest');
+        const res = await fetch('https://api.gay.com/latest');
         const data = await res.json();
         
-        // Atualiza gráfico
+        // Atualização do gráfico
         soilChart.data.datasets[0].data = [
-          data.soilTypeValue || 1, // pode ser um índice numérico p/ tipo de solo
+          data.soilTypeValue || 1, // pode ser um índice numérico p/ tipo de solo, temos que ver isso ainda
           data.humidity || 0,
           data.ndvi || 0
         ];
         soilChart.update();
 
-        // Atualiza imagem
+        // Atualização de imagem
         document.getElementById('photo').src = data.imageUrl || '';
       } catch (err) {
         console.error('Erro ao carregar dados:', err);
@@ -64,7 +64,7 @@
 
     document.getElementById('captureBtn').addEventListener('click', async () => {
       try {
-        const res = await fetch('https://api.exemplo.com/capture', {
+        const res = await fetch('https://api.gay.com/capture', {
           method: 'POST'
         });
         const data = await res.json();
@@ -75,7 +75,7 @@
       }
     });
 
-    // Carrega dados iniciais
+    // Carregar dados iniciais
     loadLatestData();
   </script>
 
