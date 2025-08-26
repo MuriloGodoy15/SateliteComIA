@@ -44,7 +44,7 @@
 
     async function loadLatestData() {
       try {
-        const res = await fetch('https://api.gay.com/latest');
+        const res = await fetch('http://localhost:8000/capture');
         const data = await res.json();
         
         // Atualização do gráfico
@@ -64,7 +64,7 @@
 
     document.getElementById('captureBtn').addEventListener('click', async () => {
       try {
-        const res = await fetch('https://api.gay.com/capture', {
+        const res = await fetch('http://localhost:8000/latest', {
           method: 'POST'
         });
         const data = await res.json();

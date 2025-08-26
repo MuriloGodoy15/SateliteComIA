@@ -3,13 +3,15 @@ import tensorflow as tf
 from PIL import Image
 import sys
 import os
+
+diretorio_base = os.path.dirname(os.path.abspath(__file__))
+
+model_path = os.path.join(diretorio_base, "ia_treinada", "model.tflite")
+labels_path = os.path.join(diretorio_base, "ia_treinada", "labels.txt")
+teste_path = os.path.join(diretorio_base, "imgs Teste", "solopantanoso3.jpg")
+
+
 tflite = tf.lite
-
-
-
-model_path= "ia_treinada/model.tflite"
-labels_path = "ia_treinada/labels.txt"
-teste_path = "imgs Teste/solopantanoso1.jpg" 
 
 
 def carregar_labels(path):
